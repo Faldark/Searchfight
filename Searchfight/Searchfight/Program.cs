@@ -1,7 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using Searchfight.SearchEngines;
-using Searchfight.SearchEngines.Interfaces;
-using Searchfight.Services;
+using Searchfight.Configure;
 using Searchfight.Services.Interfaces;
 using System;
 using System.Linq;
@@ -20,26 +18,10 @@ namespace Searchfight
             //     var playerSection = configuration.GetSection(nameof(Player));
 
 
-            var serviceProvider = new ServiceCollection()
-            .AddSingleton<IGoogleSearchEngine, GoogleSearchEngine>()
-            .AddSingleton<IBingSearchEngine, BingSearchEngine>()
-            .AddSingleton<ISearchEnginesService, SearchEnginesService>()
-            .AddSingleton<IResultsAggregatorService, ResultsAggregatorService>()
-            .AddSingleton<IExecutionFlowService, ExecutionFlowService>()
-            .AddSingleton<IResultOutputService, ResultOutputService>()
-            .BuildServiceProvider();
-            //var test = new string[] { ".net", "Java", "javascript", "life" };
-
-            await serviceProvider.GetService<IExecutionFlowService>().Run(args.ToList());
-
-            //var test = serviceProvider.GetService<ISearchEnginesService>();
-            //var resultAggregator = serviceProvider.GetService<IResultsAggregatorService>();
-            //var result = await test.GetSearchResultsAsync(new List<string> {".net", "Java", "javascript" });
-
-            //var agregation = resultAggregator.FindSearchEnginesWinners(result).ToList();
-
-            //var totalWinner = resultAggregator.FindSearchEnginesTotalWinner(result);
-
+            var serviceProvider = ContainerConfiguration.Configure();
+            var test = new string[] { "java", ".net" };
+            //await serviceProvider.GetService<IExecutionFlowService>().Run(args.ToList());
+            await serviceProvider.GetService<IExecutionFlowService>().Run(test);
 
 
             Console.WriteLine("Hello World!");
