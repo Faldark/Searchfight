@@ -4,7 +4,6 @@ using Searchfight.SearchEngines.Interfaces;
 using Searchfight.Services;
 using Searchfight.Services.Interfaces;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -29,9 +28,9 @@ namespace Searchfight
             .AddSingleton<IExecutionFlowService, ExecutionFlowService>()
             .AddSingleton<IResultOutputService, ResultOutputService>()
             .BuildServiceProvider();
+            //var test = new string[] { ".net", "Java", "javascript", "life" };
 
-
-            await serviceProvider.GetService<IExecutionFlowService>().Run(InputParser(args));
+            await serviceProvider.GetService<IExecutionFlowService>().Run(args.ToList());
 
             //var test = serviceProvider.GetService<ISearchEnginesService>();
             //var resultAggregator = serviceProvider.GetService<IResultsAggregatorService>();
@@ -46,11 +45,6 @@ namespace Searchfight
             Console.WriteLine("Hello World!");
 
 
-        }
-
-        private static IEnumerable<string> InputParser(string[] input)
-        {
-            return input.ToList();
         }
     }
 }
