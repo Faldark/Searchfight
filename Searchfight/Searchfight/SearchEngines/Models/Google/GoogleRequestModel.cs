@@ -5,9 +5,9 @@ namespace Searchfight.SearchEngines.Models.Google
 {
     public class GoogleRequestModel
     {
-        private static Uri Url => new Uri(SettingsConfiguration.Configuration().GetSection("Google").GetSection("api-address").Value, UriKind.Absolute);
-        private static string ApiKey => SettingsConfiguration.Configuration().GetSection("Google").GetSection("api-key").Value;
-        private static string ApiCx => SettingsConfiguration.Configuration().GetSection("Google").GetSection("api-cx").Value;
+        private static Uri Url => new Uri(SettingsConfiguration.Configuration.GetSection("Google").GetSection("api-address").Value, UriKind.Absolute);
+        private static string ApiKey => SettingsConfiguration.Configuration.GetSection("Google").GetSection("api-key").Value;
+        private static string ApiCx => SettingsConfiguration.Configuration.GetSection("Google").GetSection("api-cx").Value;
 
         public static Uri GetUrl(string query)
         {

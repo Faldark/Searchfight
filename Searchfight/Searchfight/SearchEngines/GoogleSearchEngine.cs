@@ -13,17 +13,19 @@ namespace Searchfight.SearchEngines
 
         public string Name => "Google";
 
-        /// <summary>
-        /// Todo: May add ctor to inject <see cref="HttpClient"/>
-        /// </summary>
-        public GoogleSearchEngine()
+        public GoogleSearchEngine() : this(new HttpClient())
+        { 
+        
+        }
+
+        public GoogleSearchEngine(HttpClient httpClient)
         {
-            _httpClient = new HttpClient();
+            _httpClient = httpClient;
         }
 
         public async Task<long> GetSearchTotalCountAsync(string input)
         {
-            var result = await this._httpClient.GetAsync(GoogleRequestModel.GetUrl(input));
+            using var result = await _httpClient.GetAsync(GoogleRequestModel.GetUrl(input));
             if (result.IsSuccessStatusCode)
             {
                 var response = JsonConvert.DeserializeObject<GoogleResponseModel>(await result.Content.ReadAsStringAsync());

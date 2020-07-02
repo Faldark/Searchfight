@@ -2,7 +2,6 @@
 using Searchfight.Configure;
 using Searchfight.Services.Interfaces;
 using System;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Searchfight

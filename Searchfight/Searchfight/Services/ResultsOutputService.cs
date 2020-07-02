@@ -7,7 +7,7 @@ using System.Text;
 
 namespace Searchfight.Services
 {
-    public class ResultOutputService : IResultOutputService
+    public class ResultsOutputService : IResultOutputService
     {
         public void OutputSearchResults(IEnumerable<SearchResultModel> input)
         {

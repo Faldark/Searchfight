@@ -3,9 +3,6 @@ using Searchfight.SearchEngines;
 using Searchfight.SearchEngines.Interfaces;
 using Searchfight.Services;
 using Searchfight.Services.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Searchfight.Configure
 {
@@ -19,7 +16,7 @@ namespace Searchfight.Configure
                 .AddSingleton<ISearchEnginesService, SearchEnginesService>()
                 .AddSingleton<IResultsAggregatorService, ResultsAggregatorService>()
                 .AddSingleton<IExecutionFlowService, ExecutionFlowService>()
-                .AddSingleton<IResultOutputService, ResultOutputService>()
+                .AddSingleton<IResultOutputService, ResultsOutputService>()
                 .BuildServiceProvider();
         }
     }

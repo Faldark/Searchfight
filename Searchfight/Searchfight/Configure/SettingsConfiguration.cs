@@ -4,10 +4,7 @@ namespace Searchfight.Configure
 {
     internal static class SettingsConfiguration
     {
-        public static IConfiguration Configuration()
-        {
-            return new ConfigurationBuilder()
+        public static IConfiguration Configuration => new ConfigurationBuilder()
              .AddJsonFile("appsettings.json").Build();
-        }
     }
 }
