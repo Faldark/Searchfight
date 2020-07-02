@@ -23,15 +23,21 @@ namespace Searchfight.SearchEngines
             _httpClient.DefaultRequestHeaders.Add(BingRequestModel.ApiKeyHeader, BingRequestModel.ApiKey);
         }
 
-        public async Task<long> GetSearchTotalCountAsync(string input)
+        public async Task<long> GetSearchTotalCountAsync(string query)
         {
-            using var result = await _httpClient.GetAsync(new Uri(BingRequestModel.Url + input));
-            if (result.IsSuccessStatusCode)
+            if (string.IsNullOrEmpty(query))
             {
-                var response = JsonConvert.DeserializeObject<BingResponseModel>(await result.Content.ReadAsStringAsync());
-                return response.WebPages.TotalEstimatedMatches;
+                throw new ArgumentNullException($"The {nameof(query)} you provided is null or empty");
             }
-            throw new Exception(result.ReasonPhrase);
+
+            using var result = await _httpClient.GetAsync(new Uri(BingRequestModel.Url + query));
+            if (!result.IsSuccessStatusCode)
+            {
+                throw new HttpRequestException($"Something went wrong with request, statusCode: {result.StatusCode}");
+            }
+
+            var response = JsonConvert.DeserializeObject<BingResponseModel>(await result.Content.ReadAsStringAsync());
+            return response.WebPages.TotalEstimatedMatches;
         }
     }
 }

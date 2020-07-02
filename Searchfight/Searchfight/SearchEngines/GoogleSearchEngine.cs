@@ -23,15 +23,20 @@ namespace Searchfight.SearchEngines
             _httpClient = httpClient;
         }
 
-        public async Task<long> GetSearchTotalCountAsync(string input)
+        public async Task<long> GetSearchTotalCountAsync(string query)
         {
-            using var result = await _httpClient.GetAsync(GoogleRequestModel.GetUrl(input));
-            if (result.IsSuccessStatusCode)
+            if (string.IsNullOrEmpty(query))
             {
-                var response = JsonConvert.DeserializeObject<GoogleResponseModel>(await result.Content.ReadAsStringAsync());
-                return response.SearchInformation.TotalResults;
+                throw new ArgumentNullException($"The {nameof(query)} you provided is null or empty");
             }
-            throw new Exception(result.ReasonPhrase);
+
+            using var result = await _httpClient.GetAsync(GoogleRequestModel.GetUrl(query));
+            if (!result.IsSuccessStatusCode)
+            {
+                throw new HttpRequestException($"Something went wrong with request, statusCode: {result.StatusCode}");
+            }
+            var response = JsonConvert.DeserializeObject<GoogleResponseModel>(await result.Content.ReadAsStringAsync());
+            return response.SearchInformation.TotalResults;
         }
     }
 }
