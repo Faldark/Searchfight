@@ -51,7 +51,7 @@ namespace Searchfight.Services
 
             if (!Validator.TryValidateObject(input, context, errorResults))
             {
-                throw new ArgumentException($"search results are corrupted, we got an error: {errorResults.First().ErrorMessage}");
+                throw new ArgumentException($"Search results are corrupted, we got an error: {errorResults.First().ErrorMessage}");
             }
         }
     }

@@ -11,11 +11,6 @@ namespace Searchfight
         static async Task Main(string[] args)
         {
 
-            //     IConfiguration configuration = new ConfigurationBuilder()
-            //.AddJsonFile("appsettings.json", true, true)
-            //.Build();
-            //     var playerSection = configuration.GetSection(nameof(Player));
-
 
             var serviceProvider = ContainerConfiguration.Configure();
             var test = new string[] { "java", ".net" };
