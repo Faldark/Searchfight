@@ -10,7 +10,7 @@ namespace Searchfight.Services
     {
         public IEnumerable<SearchEngineWinner> FindSearchEnginesWinners(IList<SearchResultModel> results)
         {
-            if (results.Count < 1)
+            if (results.Count < 2)
             {
                 throw new ArgumentException("Something went wrong with search query results, please try again later");
             }
@@ -23,7 +23,7 @@ namespace Searchfight.Services
 
         public SearchEngineWinner FindSearchEnginesTotalWinner(IList<SearchResultModel> results)
         {
-            if (results.Count < 1)
+            if (results.Count < 2)
             {
                 throw new ArgumentException("Something went wrong with search query results, please try again later");
             }

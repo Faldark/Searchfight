@@ -16,7 +16,7 @@ namespace Searchfight.Configure
                 .AddSingleton<ISearchEnginesService, SearchEnginesService>()
                 .AddSingleton<IResultsAggregatorService, ResultsAggregatorService>()
                 .AddSingleton<IExecutionFlowService, ExecutionFlowService>()
-                .AddSingleton<IResultOutputService, ResultsOutputService>()
+                .AddSingleton<IResultsOutputService, ResultsOutputService>()
                 .BuildServiceProvider();
         }
     }

@@ -8,11 +8,11 @@ using System.Text;
 
 namespace Searchfight.Services
 {
-    public class ResultsOutputService : IResultOutputService
+    public class ResultsOutputService : IResultsOutputService
     {
         public void OutputSearchResults(IEnumerable<SearchResultModel> input)
         {
-            InputValidation(input);
+            InputListValidation(input);
             var orderedList = input.GroupBy(x => x.QueryName);
             var result = new StringBuilder();
             foreach (var element in orderedList)
@@ -34,7 +34,7 @@ namespace Searchfight.Services
 
         public void OutputWinners(IEnumerable<SearchEngineWinner> winners)
         {
-            InputValidation(winners);
+            InputListValidation(winners);
             var result = new StringBuilder();
 
             foreach (var winner in winners)
@@ -44,7 +44,7 @@ namespace Searchfight.Services
             Console.WriteLine(result);
         }
 
-        private void InputValidation(Object input)
+        private void InputValidation(object input)
         {
             var context = new ValidationContext(input, serviceProvider: null, items: null);
             var errorResults = new List<ValidationResult>();
@@ -53,6 +53,21 @@ namespace Searchfight.Services
             {
                 throw new ArgumentException($"Search results are corrupted, we got an error: {errorResults.First().ErrorMessage}");
             }
+        }
+
+        private void InputListValidation(IEnumerable<object> input)
+        {
+            foreach (var item in input)
+            {
+                var context = new ValidationContext(item, serviceProvider: null, items: null);
+                var errorResults = new List<ValidationResult>();
+
+                if (!Validator.TryValidateObject(item, context, errorResults))
+                {
+                    throw new ArgumentException($"Search results are corrupted, we got an error: {errorResults.First().ErrorMessage}");
+                }
+            }
+            
         }
     }
 }

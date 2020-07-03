@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Searchfight.SearchEngines
 {
-    class GoogleSearchEngine : IGoogleSearchEngine
+    public class GoogleSearchEngine : IGoogleSearchEngine
     {
         private HttpClient _httpClient;
 

@@ -10,8 +10,6 @@ namespace Searchfight
     {
         static async Task Main(string[] args)
         {
-
-
             var serviceProvider = ContainerConfiguration.Configure();
             var test = new string[] { "java", ".net" };
             //await serviceProvider.GetService<IExecutionFlowService>().Run(args.ToList());

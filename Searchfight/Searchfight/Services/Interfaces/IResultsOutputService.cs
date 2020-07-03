@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Searchfight.Services.Interfaces
 {
-    public interface IResultOutputService
+    public interface IResultsOutputService
     {
         public void OutputSearchResults(IEnumerable<SearchResultModel> input);
         public void OutputWinners(IEnumerable<SearchEngineWinner> winners);

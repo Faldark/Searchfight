@@ -10,20 +10,19 @@ namespace Searchfight.Services
     {
         private readonly IResultsAggregatorService _resultsAggregatorService;
         private readonly ISearchEnginesService _searchEnginesService;
-        private readonly IResultOutputService _resultOutputService;
-        public ExecutionFlowService(IResultsAggregatorService resultsAggregatorService, ISearchEnginesService searchEnginesService, IResultOutputService resultOutputService)
+        private readonly IResultsOutputService _resultsOutputService;
+        public ExecutionFlowService(IResultsAggregatorService resultsAggregatorService, ISearchEnginesService searchEnginesService, IResultsOutputService resultsOutputService)
         {
             _resultsAggregatorService = resultsAggregatorService;
             _searchEnginesService = searchEnginesService;
-            _resultOutputService = resultOutputService;
+            _resultsOutputService = resultsOutputService;
         }
 
         public async Task Run(IEnumerable<string> input)
         {
             if (input.Count() < 2)
             {
-                Console.WriteLine("The input query is not correct, please execute again with a 2 or more search variables");
-                return;
+                throw new ArgumentException("The input query is not correct, please execute again with a 2 or more search variables");
             }
 
             Console.WriteLine("Execution in process...");
@@ -33,9 +32,9 @@ namespace Searchfight.Services
             var searchEnginesWinnersList = _resultsAggregatorService.FindSearchEnginesWinners(searchResults).ToList();
             var searchEnginesTotalWinner = _resultsAggregatorService.FindSearchEnginesTotalWinner(searchResults);
 
-            _resultOutputService.OutputSearchResults(searchResults);
-            _resultOutputService.OutputWinners(searchEnginesWinnersList);
-            _resultOutputService.OutputTotalWinner(searchEnginesTotalWinner);
+            _resultsOutputService.OutputSearchResults(searchResults);
+            _resultsOutputService.OutputWinners(searchEnginesWinnersList);
+            _resultsOutputService.OutputTotalWinner(searchEnginesTotalWinner);
 
             Console.WriteLine("Execution has been completed");
         }
