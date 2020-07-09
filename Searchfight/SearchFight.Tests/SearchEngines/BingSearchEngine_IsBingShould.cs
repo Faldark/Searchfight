@@ -9,7 +9,7 @@ namespace SearchFight.Tests.SearchEngines
     [TestFixture]
     public class BingSearchEngine_IsBingShould
     {
-        private IBingSearchEngine _bingSearchEngine;
+        private ISearchEngine _bingSearchEngine;
 
         [SetUp]
         public void SetUp()
@@ -32,7 +32,7 @@ namespace SearchFight.Tests.SearchEngines
 
             var result = await _bingSearchEngine.GetSearchTotalCountAsync(input);
 
-            Assert.Greater(result, 0);
+            Assert.Greater(result.TotalMatchesCount, 0);
         }
     }
 }

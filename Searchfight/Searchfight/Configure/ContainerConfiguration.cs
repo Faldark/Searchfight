@@ -8,11 +8,11 @@ namespace Searchfight.Configure
 {
     internal static class ContainerConfiguration
     {
-        public static ServiceProvider Configure()
+        public static ServiceProvider GetServices()
         {
             return new ServiceCollection()
-                .AddSingleton<IGoogleSearchEngine, GoogleSearchEngine>()
-                .AddSingleton<IBingSearchEngine, BingSearchEngine>()
+                .AddSingleton<ISearchEngine, GoogleSearchEngine>()
+                .AddSingleton<ISearchEngine, BingSearchEngine>()
                 .AddSingleton<ISearchEnginesService, SearchEnginesService>()
                 .AddSingleton<IResultsAggregatorService, ResultsAggregatorService>()
                 .AddSingleton<IExecutionFlowService, ExecutionFlowService>()

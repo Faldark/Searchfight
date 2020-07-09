@@ -10,7 +10,7 @@ namespace Searchfight
     {
         static async Task Main(string[] args)
         {
-            var serviceProvider = ContainerConfiguration.Configure();
+            var serviceProvider = ContainerConfiguration.GetServices();
             await serviceProvider.GetService<IExecutionFlowService>().Run(args.ToList());
         }
     }

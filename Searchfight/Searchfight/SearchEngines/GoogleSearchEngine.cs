@@ -1,13 +1,14 @@
 ﻿using Newtonsoft.Json;
 using Searchfight.SearchEngines.Interfaces;
 using Searchfight.SearchEngines.Models.Google;
+using Searchfight.Services.Models;
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace Searchfight.SearchEngines
 {
-    public class GoogleSearchEngine : IGoogleSearchEngine
+    public class GoogleSearchEngine : ISearchEngine
     {
         private HttpClient _httpClient;
 
@@ -23,7 +24,7 @@ namespace Searchfight.SearchEngines
             _httpClient = httpClient;
         }
 
-        public async Task<long> GetSearchTotalCountAsync(string query)
+        public async Task<SearchResultModel> GetSearchTotalCountAsync(string query)
         {
             if (string.IsNullOrEmpty(query))
             {
@@ -36,7 +37,13 @@ namespace Searchfight.SearchEngines
                 throw new HttpRequestException($"Something went wrong with request, statusCode: {result.StatusCode}");
             }
             var response = JsonConvert.DeserializeObject<GoogleResponseModel>(await result.Content.ReadAsStringAsync());
-            return response.SearchInformation.TotalResults;
+
+            return new SearchResultModel()
+            {
+                SearchEngineName = Name,
+                TotalMatchesCount = response.SearchInformation.TotalResults,
+                QueryName = query
+            };
         }
     }
 }

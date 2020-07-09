@@ -6,6 +6,6 @@ namespace Searchfight.Services.Interfaces
 {
     public interface ISearchEnginesService
     {
-        public Task<List<SearchResultModel>> GetSearchResultsAsync(IEnumerable<string> queries);
+        public Task<List<SearchResultModel>> GetEnginesSearchResultsAsync(IEnumerable<string> queries);
     }
 }

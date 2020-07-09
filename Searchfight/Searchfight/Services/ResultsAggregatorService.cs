@@ -8,31 +8,31 @@ namespace Searchfight.Services
 {
     public class ResultsAggregatorService : IResultsAggregatorService
     {
-        public IEnumerable<SearchEngineWinner> FindSearchEnginesWinners(IList<SearchResultModel> results)
+        public IEnumerable<SearchEngineWinner> FindSearchEnginesWinners(IList<SearchResultModel> searchResults)
         {
-            if (results.Count < 2)
+            if (searchResults.Count < 2)
             {
                 throw new ArgumentException("Something went wrong with search query results, please try again later");
             }
-            return results.GroupBy(s => s.SearchEngineName, (searchEngineName, totalMatchesCounts) => new SearchEngineWinner
+            return searchResults.GroupBy(s => s.SearchEngineName, (searchEngineName, totalMatchesCounts) => new SearchEngineWinner
             {
                 SearchEngineName = searchEngineName,
                 QueryName = totalMatchesCounts.OrderByDescending(x => x.TotalMatchesCount).First().QueryName
             });
         }
 
-        public SearchEngineWinner FindSearchEnginesTotalWinner(IList<SearchResultModel> results)
+        public SearchEngineWinner FindSearchEnginesTotalWinner(IList<SearchResultModel> searchResults)
         {
-            if (results.Count < 2)
+            if (searchResults.Count < 2)
             {
                 throw new ArgumentException("Something went wrong with search query results, please try again later");
             }
-            var result = results.OrderByDescending(x => x.TotalMatchesCount).First();
+            var searchResultsWinner = searchResults.OrderByDescending(x => x.TotalMatchesCount).First();
 
             return new SearchEngineWinner()
             {
-                QueryName = result.QueryName,
-                SearchEngineName = result.SearchEngineName
+                QueryName = searchResultsWinner.QueryName,
+                SearchEngineName = searchResultsWinner.SearchEngineName
             };
         }
     }

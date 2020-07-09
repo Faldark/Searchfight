@@ -9,7 +9,7 @@ namespace SearchFight.Tests.SearchEngines
     [TestFixture]
     public class GoogleSearchEngine_IsGoogleShould
     {
-        private IGoogleSearchEngine _googleSearchEngine;
+        private ISearchEngine _googleSearchEngine;
 
         [SetUp]
         public void SetUp()
@@ -32,7 +32,7 @@ namespace SearchFight.Tests.SearchEngines
 
             var result = await _googleSearchEngine.GetSearchTotalCountAsync(input);
 
-            Assert.Greater(result, 0);
+            Assert.Greater(result.TotalMatchesCount, 0);
         }
     }
 }

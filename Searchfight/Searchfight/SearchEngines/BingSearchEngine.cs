@@ -1,13 +1,14 @@
 ﻿using Newtonsoft.Json;
 using Searchfight.SearchEngines.Interfaces;
 using Searchfight.SearchEngines.Models.Bing;
+using Searchfight.Services.Models;
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace Searchfight.SearchEngines
 {
-    public class BingSearchEngine : IBingSearchEngine
+    public class BingSearchEngine : ISearchEngine
     {
         private HttpClient _httpClient;
 
@@ -23,7 +24,7 @@ namespace Searchfight.SearchEngines
             _httpClient.DefaultRequestHeaders.Add(BingRequestModel.ApiKeyHeader, BingRequestModel.ApiKey);
         }
 
-        public async Task<long> GetSearchTotalCountAsync(string query)
+        public async Task<SearchResultModel> GetSearchTotalCountAsync(string query)
         {
             if (string.IsNullOrEmpty(query))
             {
@@ -37,7 +38,13 @@ namespace Searchfight.SearchEngines
             }
 
             var response = JsonConvert.DeserializeObject<BingResponseModel>(await result.Content.ReadAsStringAsync());
-            return response.WebPages.TotalEstimatedMatches;
+
+            return new SearchResultModel()
+            {
+                SearchEngineName = Name,
+                TotalMatchesCount = response.WebPages.TotalEstimatedMatches,
+                QueryName = query
+            };
         }
     }
 }

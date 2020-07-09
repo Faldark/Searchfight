@@ -27,7 +27,7 @@ namespace Searchfight.Services
 
             Console.WriteLine("Execution in process...");
 
-            var searchResults = await _searchEnginesService.GetSearchResultsAsync(input);
+            var searchResults = await _searchEnginesService.GetEnginesSearchResultsAsync(input);
 
             var searchEnginesWinnersList = _resultsAggregatorService.FindSearchEnginesWinners(searchResults).ToList();
             var searchEnginesTotalWinner = _resultsAggregatorService.FindSearchEnginesTotalWinner(searchResults);

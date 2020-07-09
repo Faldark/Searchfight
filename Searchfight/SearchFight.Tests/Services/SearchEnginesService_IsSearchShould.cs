@@ -19,27 +19,11 @@ namespace SearchFight.Tests.Services
         }
 
         [Test]
-        public void GetSearchResultsAsync_InputQueryIsEmpty_ThrowException()
-        {
-            var input = new List<string>();
-
-            Assert.ThrowsAsync<ArgumentNullException>(() => _searchEnginesService.GetSearchResultsAsync(input));
-        }
-
-        [Test]
-        public void GetSearchResultsAsync_InputQuery1Element_ThrowException()
-        {
-            var input = new List<string>() {".net"};
-
-            Assert.ThrowsAsync<ArgumentNullException>(() => _searchEnginesService.GetSearchResultsAsync(input));
-        }
-
-        [Test]
-        public async Task GetSearchResultsAsync_InputIsOk_ReturnsResults()
+        public async Task GetEnginesSearchResultsAsync_InputIsOk_ReturnsResults()
         {
             var input = new List<string>() { ".net", "java" };
 
-            var results = await _searchEnginesService.GetSearchResultsAsync(input);
+            var results = await _searchEnginesService.GetEnginesSearchResultsAsync(input);
 
             foreach (var result in results)
             {
